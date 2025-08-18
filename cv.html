@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Mwangi Waithira - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
+                <style>
+        body {
+            font-family: 'Poppins', sans-serif; /* Primary font */
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        h1, h2, h3, h6 {
+            font-family: 'Lato', sans-serif; /* Headings font */
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a; /* slate-900 */
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .btn {
+            @apply px-6 py-3 rounded-full font-semibold transition-all duration-300;
+        }
+        .btn-primary {
+            @apply bg-slate-800 text-white hover:bg-slate-700;
+        }
+        .btn-secondary {
+            @apply border border-slate-500 text-slate-700 hover:bg-slate-100;
+        }
+        .card {
+            @apply bg-white p-8 rounded-lg shadow-md border border-slate-200 text-center transition-all duration-300 hover:shadow-lg hover:scale-105;
+        }
+        .skill-card-detail {
+            @apply bg-white p-6 rounded-lg shadow-md border border-slate-200 transition-all duration-300 hover:shadow-lg hover:scale-105;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .profile-img-container {
+            position: relative;
+            width: 12rem; /* h-48 */
+            height: 12rem; /* w-48 */
+            border-radius: 9999px; /* rounded-full */
+            overflow: hidden;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .profile-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 41, 59, 0.9); /* slate-800 with transparency */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .profile-img-container:hover .profile-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        .profile-img-container:hover .profile-img {
+            transform: scale(1.1);
+        }
+        .contact-btn {
+            @apply px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105;
+        }
+        .contact-btn-primary {
+            @apply bg-slate-800 text-white hover:bg-slate-700;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+        <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <div class="text-2xl font-bold text-slate-800">P<span class="text-slate-600">M</span>W</div>
+                <nav class="hidden md:flex space-x-6 text-slate-600 font-medium">
+                    <a href="#home" class="hover:text-slate-800">Home</a>
+                    <a href="#about" class="hover:text-slate-800">About</a>
+                    <a href="#services" class="hover:text-slate-800">Services</a>
+                    <a href="#projects" class="hover:text-slate-800">Projects</a>
+                    <a href="#competencies" class="hover:text-slate-800">Skills</a>
+                    <a href="#education" class="hover:text-slate-800">Education</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="btn btn-primary">Contact Me</button>
+            </div>
+        </div>
+    </header>
+
+        <section id="home" class="bg-gradient-to-br from-slate-50 to-slate-100 py-16 md:py-24">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+            <div class="md:w-1/2 flex justify-center mb-8 md:mb-0">
+                <div class="profile-img-container">
+                    <img src="https://placehold.co/300x300/e2e8f0/64748b?text=Paul" alt="Paul Mwangi Waithira" class="profile-img">
+                    <div class="profile-overlay flex flex-col justify-center items-center">
+                        <p class="font-bold text-lg mb-2">That's Me!</p>
+                        <p class="text-sm">Driven by coffee & code.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <h6 class="text-xl font-semibold text-slate-600">Paul Mwangi Waithira</h6>
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mt-2 leading-tight">I'm a <br> <span class="text-slate-700">Front-end Developer</span> & <span class="text-slate-700">Tech & Ops Leader</span></h1>
+                <p class="mt-4 text-lg text-slate-700 leading-relaxed max-w-xl mx-auto md:mx-0">
+                    Highly motivated and versatile professional with a strong foundation in Physics and Electronics, complemented by full-stack software engineering expertise. I drive digital transformation, streamline operations, and lead technical projects in diverse environments.
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start space-x-4">
+                    <a href="https://github.com/palvin254" target="_blank" class="contact-btn contact-btn-primary">VIEW GITHUB</a>
+                    <a href="https://placehold.co/200x100/e2e8f0/64748b?text=Download+CV" download="Paul_Mwangi_CV.pdf" class="contact-btn btn-secondary">DOWNLOAD CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 py-16">
+
+                <section id="about" class="mb-24">
+            <h2 class="section-title">About <span class="text-slate-700">Me</span></h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-12">
+                <div class="md:w-1/2 flex justify-center mb-8 md:mb-0">
+                    <img src="https://placehold.co/400x400/e2e8f0/64748b?text=About+Paul" alt="Paul Mwangi Waithira" class="rounded-lg shadow-lg object-cover max-w-full h-auto">
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Hello! I'm Paul Mwangi Waithira.</h3>
+                    <p class="text-lg text-slate-700 leading-relaxed mb-6">
+                        I am a highly motivated and versatile professional with a strong foundation in Physics and Electronics, complemented by full-stack software engineering expertise. I have a proven ability to drive digital transformation, streamline operations, and lead technical projects in diverse environments, from educational startups to established safety organizations. I am adept at leveraging technology to enhance efficiency, manage data, and improve client relations. I am eager to apply my unique blend of scientific rigor, technical acumen, and operational leadership to impactful roles.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://radtech.co.ke" target="_blank" title="Personal Website" class="text-slate-500 hover:text-slate-700">
+                             🌐
+                        </a>
+                        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_PROFILE" target="_blank" title="LinkedIn" class="text-slate-500 hover:text-slate-700">
+                            
+                        </a>
+                        <a href="https://github.com/palvin254" target="_blank" title="GitHub" class="text-slate-500 hover:text-slate-700">
+                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                <section id="services" class="mb-24">
+            <h2 class="section-title">My <span class="text-slate-700">Services</span></h2>
+            <p class="text-center text-lg text-slate-700 mb-12 max-w-2xl mx-auto">Providing comprehensive solutions for digital transformation, technical training, and operational excellence.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card">
+                    <div class="text-5xl mb-4 text-slate-600">
+                        💻
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Web Development</h3>
+                    <p class="text-slate-600">Crafting responsive and dynamic web applications with a focus on intuitive UI/UX and robust functionality.</p>
+                </div>
+                <div class="card">
+                    <div class="text-5xl mb-4 text-slate-600">
+                        ⚙️
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Digital Transformation</h3>
+                    <p class="text-slate-600">Implementing modern IT solutions and optimizing workflows to enhance efficiency and data management.</p>
+                </div>
+                <div class="card">
+                    <div class="text-5xl mb-4 text-slate-600">
+                        🤖
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Technical Training & Robotics</h3>
+                    <p class="text-slate-600">Developing and delivering engaging curricula in coding, robotics, and emerging technologies for various age groups.</p>
+                </div>
+            </div>
+        </section>
+
+                <section id="projects" class="mb-24">
+            <h2 class="section-title">Signature <span class="text-slate-700">Projects</span></h2>
+            <p class="text-center text-lg text-slate-700 mb-12 max-w-2xl mx-auto">Highlighting key initiatives where I've driven impactful change and innovation.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card text-left">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">Digital Transformation at RadTech</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Spearheaded a complete operational overhaul by implementing **Google Workspace (Sheets, Slides, Drive)**. This initiative replaced inefficient, high-risk data sharing via flash drives and email with a secure, real-time, cloud-based system.
+                    </p>
+                    <ul class="list-disc list-inside text-slate-600 space-y-2">
+                        <li>Significantly improved data accessibility and collaboration across the company.</li>
+                        <li>Streamlined dosimetry reporting, drastically reducing data loss risks and enhancing operational efficiency.</li>
+                        <li>Designed a robust Google Sheets-based client and device database for improved client management and compliance.</li>
+                        <li>Established the company's first online presence (LinkedIn, radtech.co.ke with custom chatbot).</li>
+                        <li>Secured a four-year tender, substantially increasing company revenue.</li>
+                    </ul>
+                </div>
+                <div class="card text-left">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">AFRIBOT Localization & Kit Development</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Led the initiative to make technology education more accessible and culturally relevant in Kenya through the **AFRIBOT** sister company.
+                    </p>
+                    <ul class="list-disc list-inside text-slate-600 space-y-2">
+                        <li>Successfully translated the Scratch programming environment into Swahili.</li>
+                        <li>Directed a team to design and develop an innovative **ESP32-based educational training kit** featuring a 4-motor shield.</li>
+                        <li>Empowered local students with relevant, hands-on STEM learning tools.</li>
+                        <li>Managed team, lesson planning, and logistics for coding and robotics programs in Nairobi primary schools.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+                <section id="competencies" class="mb-24">
+            <h2 class="section-title">Core <span class="text-slate-700">Competencies</span></h2>
+            <p class="text-center text-lg text-slate-700 mb-8 max-w-3xl mx-auto">My skills bridge the gap between technical execution, strategic planning, and operational management. The chart below visualizes the balance of my key strengths.</p>
+            <div class="chart-container mb-12 p-4 bg-white rounded-lg shadow-md border border-slate-200">
+                <canvas id="skillsChart"></canvas>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="skill-card-detail">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Technical & Development</h3>
+                    <ul class="space-y-2 text-slate-600">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Radiation Safety Mgmt</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>HTML, CSS, JavaScript, React</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Python, C, SQL</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Arduino, ESP32/8266</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Git & GitHub, Shell Scripting</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Chatbot Development, Linux</li>
+                    </ul>
+                </div>
+                <div class="skill-card-detail">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Operations & Data</h3>
+                    <ul class="space-y-2 text-slate-600">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Process Optimization</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Data Management</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Google Workspace Expert</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Logistics Management</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Digital Transformation</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>IT Infrastructure Upgrade</li>
+                    </ul>
+                </div>
+                <div class="skill-card-detail">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Leadership & Strategy</h3>
+                    <ul class="space-y-2 text-slate-600">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Project Management</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Team Leadership</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Curriculum Development</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Tender Management</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Client Relationship Mgmt</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>Strategic Problem-Solving</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+                <section id="education" class="bg-white py-16 rounded-lg shadow-md mb-24">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Education & <span class="text-slate-700">Certifications</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Education</h3>
+                        <div class="mt-4 space-y-4 text-slate-700">
+                            <div>
+                                <p class="font-semibold">Full Stack Software Engineering</p>
+                                <p>ALX | 2022 – 2023</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Bachelor of Science (Physics), Major in Electronics</p>
+                                <p>University Name | Graduated September 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Certifications</h3>
+                        <div class="mt-4 space-y-4 text-slate-700">
+                           <p>Radiation Protection Course for Occupationally Exposed Workers, IAEA (July 21, 2023)</p>
+                           <p>Radiation Protection of Industrial Radiography, IAEA (June 11 – 15, 2018)</p>
+                           <p>VEX Robotics Certification (August 2021)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>Designed & Built by Paul Mwangi Waithira</p>
+            <p class="text-sm text-slate-400 mt-2">This interactive portfolio was created using HTML, Tailwind CSS, and Chart.js.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data for the portfolio
+            const userData = {
+                name: "Paul Mwangi Waithira",
+                contact: {
+                    phone: "+254 7XX XXX XXX", // Placeholder
+                    email: "your.email@example.com", // Placeholder
+                    linkedin: "YOUR_LINKEDIN_PROFILE", // Replace with actual LinkedIn handle
+                    website: "radtech.co.ke",
+                    github: "palvin254"
+                },
+                skills: {
+                    categories: [
+                        { name: 'Technical', level: 8 },
+                        { name: 'Strategy', level: 7 },
+                        { name: 'Ops Mgmt', level: 9 },
+                        { name: 'Leadership', level: 8 },
+                        { name: 'Data Mgmt', level: 9 },
+                        { name: 'Dev & IT', level: 7 }
+                    ]
+                }
+            };
+
+            // Populate Navigation (Contact Button)
+            const contactButton = document.querySelector('header .btn-primary');
+            if (contactButton) {
+                contactButton.addEventListener('click', () => {
+                    alert('You can reach Paul at ' + userData.contact.email + ' or connect on LinkedIn!'); // Using alert as a placeholder for a custom modal
+                });
+            }
+
+            // Populate Skills Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: userData.skills.categories.map(s => s.name),
+                    datasets: [{
+                        label: 'Skill Level',
+                        data: userData.skills.categories.map(s => s.level),
+                        backgroundColor: 'rgba(100, 116, 139, 0.2)', /* slate-500 with alpha */
+                        borderColor: 'rgba(51, 65, 85, 1)', /* slate-700 */
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(51, 65, 85, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(51, 65, 85, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(203, 213, 225, 0.8)' /* slate-300 */
+                            },
+                            grid: {
+                                color: 'rgba(203, 213, 225, 0.8)' /* slate-300 */
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    family: 'Lato'
+                                },
+                                color: '#334155' /* slate-700 */
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(248, 250, 252, 1)', /* slate-50 */
+                                color: '#64748b', /* slate-500 */
+                                stepSize: 2,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            min: 0,
+                            max: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

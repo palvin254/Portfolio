@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Mwangi Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Stone) -->
+    <!-- Application Structure Plan: A thematic, single-page scrolling application. The structure is designed for narrative flow and user engagement, starting with a high-level summary and allowing users to drill down into details. It uses an interactive timeline for career history and a radar chart for a quick skills overview, which is more engaging than a static list. This non-linear exploration path allows recruiters to quickly access the information most relevant to them, enhancing usability. -->
+    <!-- Visualization & Content Choices: 
+        1. Career History -> Goal: Show change/progression -> Viz: Interactive Vertical Timeline (HTML/CSS) -> Interaction: Click timeline points to show/hide job details -> Justification: More intuitive and less overwhelming than a long text block.
+        2. Skills -> Goal: Compare/Organize -> Viz: Radar Chart (Chart.js/Canvas) & Info Cards (HTML/CSS) -> Interaction: Chart provides a visual summary; cards are clickable to reveal skill details -> Justification: Quickly communicates balanced, multi-faceted strengths.
+        3. Key Achievements -> Goal: Inform/Impact -> Viz: "Signature Project" Cards (HTML/CSS) -> Interaction: Static display -> Justification: Elevates key accomplishments into memorable case studies.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            /* slate-50 */
+            color: #1e293b;
+            /* slate-800 */
+        }
+
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            /* slate-900 */
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+.btn {
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem; /* px-6 */
+    border-radius: 9999px; /* rounded-full */
+    font-weight: 600; /* font-semibold */
+    transition-property: all; /* transition-all */
+    transition-duration: 300ms; /* duration-300 */
+}
+
+.btn-primary {
+    background-color: #1e293b; /* bg-slate-800 */
+    color: #ffffff; /* text-white */
+}
+
+.btn-primary:hover {
+    background-color: #334155; /* hover:bg-slate-700 */
+}
+
+.btn-secondary {
+    border: 1px solid #64748b; /* border border-slate-500 */
+    color: #475569; /* text-slate-700 */
+}
+
+.btn-secondary:hover {
+    background-color: #f1f5f9; /* hover:bg-slate-100 */
+}
+
+        .timeline-item.active .timeline-dot {
+            background-color: #475569;
+            /* slate-600 */
+            transform: scale(1.25);
+        }
+
+        .timeline-item.active .timeline-title {
+            color: #0f172a;
+            /* slate-900 */
+            font-weight: 700;
+        }
+
+        .content-card {
+            transition: all 0.3s ease-in-out;
+            visibility: hidden;
+            opacity: 0;
+            max-height: 0;
+            transform: translateY(20px);
+        }
+
+        .content-card.active {
+            visibility: visible;
+            opacity: 1;
+            max-height: 2000px;
+            /* Large enough for content */
+            transform: translateY(0);
+            margin-top: 1.5rem;
+        }
+
+        .skill-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h1 id="main-name" class="text-4xl md:text-6xl font-bold text-slate-900">Paul Mwangi Waithira</h1>
+            <p class="mt-4 text-xl md:text-2xl text-slate-600">Technology & Operations Leader | Digital Transformation
+                Specialist | Radiation Safety Officer</p>
+            <div id="contact-info" class="mt-6 flex justify-center items-center space-x-6 text-slate-500">
+                <!-- Contact items will be injected here by JS -->
+            </div>
+        </div>
+    </header>
+
+
+
+
+>
+
+    <main class="container mx-auto px-6 py-16">
+
+        <!-- About Section -->
+    <section id="about" class="mb-24 text-center max-w-4xl mx-auto">
+        <h2 class="section-title">About Me</h2>
+    
+        <div class="md:flex md:items-center md:text-left md:space-x-12">
+    
+            <div class="md:w-1/2 flex justify-center mb-8 md:mb-0">
+                <img src="./Main-Image.png" alt="Profile of Paul Mwangi"
+                    class="rounded-full shadow-lg border-4 border-white object-cover w-64 h-64 md:w-80 md:h-80">
+            </div>
+    
+            <div class="md:w-1/2">
+                <p class="text-lg text-slate-700 leading-relaxed">
+                    I am a highly motivated and versatile professional with a strong foundation in Physics and Electronics,
+                    complemented by full-stack software engineering expertise. I have a proven ability to drive digital
+                    transformation, streamline operations, and lead technical projects in diverse environments, from
+                    educational startups to established safety organizations. I am adept at leveraging technology to enhance
+                    efficiency, manage data, and improve client relations. I am eager to apply my unique blend of scientific
+                    rigor, technical acumen, and operational leadership to impactful roles.
+                </p>
+                <div class="mt-8 flex justify-center md:justify-start space-x-4">
+                    <a href="https://github.com/palvin254" target="_blank" class="btn btn-primary"
+                        aria-label="View Paul Mwangi's GitHub profile">VIEW GITHUB PROFILE</a>
+                    <a href="./Paul_Mwangi_CV.pdf" download="Paul_Mwangi_CV.pdf"
+                        class="btn btn-secondary">DOWNLOAD CV</a>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+
+        <!-- Career Journey Section -->
+        <section id="journey" class="mb-24">
+            <h2 class="section-title">Career Journey</h2>
+            <div class="text-center text-slate-600 mb-8">Click on a role in the timeline below to see the details and
+                key achievements.</div>
+            <div class="flex flex-col md:flex-row md:space-x-12">
+                <!-- Timeline Navigation -->
+                <div class="md:w-1/3">
+                    <div id="timeline-nav" class="relative border-l-2 border-slate-200 ml-3 py-4">
+                        <!-- Timeline items will be injected by JS -->
+                    </div>
+                </div>
+                <!-- Experience Details -->
+                <div id="experience-details" class="md:w-2/3 mt-8 md:mt-0">
+                    <!-- Content cards will be injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Competencies Section -->
+        <section id="competencies" class="mb-24">
+            <h2 class="section-title">Core Competencies</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">My skills bridge the gap between technical
+                execution, strategic planning, and operational management. The chart below visualizes the balance of my
+                key strengths.</p>
+            <div class="chart-container mb-12">
+                <canvas id="skillsChart"></canvas>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Skill cards will be injected by JS -->
+            </div>
+        </section>
+
+        <!-- Signature Projects Section -->
+        <section id="projects" class="mb-24">
+            <h2 class="section-title">Signature Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project cards will be injected here -->
+                <div class="bg-white p-8 rounded-lg shadow-md border border-slate-200">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">Digital Transformation at RadTech</h3>
+                    <p class="text-slate-600 leading-relaxed">Spearheaded a complete operational overhaul by
+                        implementing Google Workspace. This replaced inefficient, high-risk data sharing via flash
+                        drives with a secure, real-time, cloud-based system. The initiative dramatically improved
+                        collaboration, data security, and workflow efficiency for critical processes like dosimetry
+                        reporting, leading to significant time and cost savings.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md border border-slate-200">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">AFRIBOT Localization & Kit Development</h3>
+                    <p class="text-slate-600 leading-relaxed">Led the initiative to make technology education more
+                        accessible by translating the entire Scratch programming environment into Swahili. Additionally,
+                        I directed a team to design and develop a custom, low-cost ESP32-based robotics kit, empowering
+                        local students with relevant, hands-on STEM learning tools.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Certifications -->
+        <section id="education" class="bg-white py-16 rounded-lg shadow-md">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Education & Certifications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">Education</h3>
+                        <div class="mt-4 space-y-4 text-slate-700">
+                            <div>
+                                <p class="font-semibold">Full Stack Software Engineering</p>
+                                <p>ALX | 2022 – 2023</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Bachelor of Science (Physics), Major in Electronics</p>
+                                <p>University of Nairobi(Chiromo Campus) | Graduated 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">Certifications</h3>
+                        <div id="certifications-list" class="mt-4 space-y-4 text-slate-700">
+                            <!-- Certs injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>Designed & Built by Paul Mwangi</p>
+            <p class="text-sm text-slate-400 mt-2">This interactive resume was created using HTML, Tailwind CSS, and
+                Chart.js.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const userData = {
+                name: "Paul Mwangi Waithira",
+                contact: {
+                    phone: "+254 741 406 438",
+                    email: "paulmwangiwaithira155@gmail.com",
+                    linkedin: "https://www.linkedin.com/in/paul-mwangi-1bb3a8201",
+                    website: "radtech.co.ke"
+                },
+                experience: [
+                    {
+                        id: 'radtech',
+                        title: 'Radiation Safety Officer',
+                        company: 'RadTech East Africa Ltd',
+                        period: 'Mar 2022 – Present',
+                        details: [
+                            'Spearheaded comprehensive digital transformation by implementing Google Workspace, migrating from outdated systems to a centralized, real-time platform, significantly improving data accessibility and collaboration.',
+                            'Streamlined critical dosimetry reporting workflows by integrating Google Drive for real-time data sharing, drastically reducing data loss risks and enhancing operational efficiency.',
+                            'Designed and developed a robust Google Sheets-based client and device database, meticulously tracking license statuses and schedules, leading to improved client management.',
+                            'Initiated and established the company\'s first official online presence, including a professional website (radtech.co.ke) with a custom-trained KNRA regulation chatbot.',
+                            'Successfully identified, pursued, and secured a four-year tender with a major client, directly contributing to a substantial increase in company revenue.',
+                            'Led staff training on the e-citizen platform for streamlined regulatory license applications.'
+                        ]
+                    },
+                    {
+                        id: 'techkidz',
+                        title: 'Asst. Director & Lead Teacher',
+                        company: 'TECHKIDZ / AFRIBOT',
+                        period: 'Feb 2021 – Feb 2022',
+                        details: [
+                            'Managed and led a team of educators, overseeing school recruitment, lesson planning, and logistics for numerous primary schools in Nairobi.',
+                            'Developed and delivered engaging coding and robotics curricula using Scratch, Arduino, and ESP32/8266.',
+                            'Spearheaded the localization of the Scratch programming environment into Swahili.',
+                            'Led the design and development of an innovative ESP32-based educational training kit.'
+                        ]
+                    },
+                    {
+                        id: 'kebs',
+                        title: 'Intern, Metrology Dept.',
+                        company: 'Kenya Bureau of Standards (KEBS)',
+                        period: 'Jul 2021 – Sep 2021',
+                        details: [
+                            'Completed an intensive 3-month attachment, gaining practical experience across various specialized laboratories.',
+                            'Rotated through SSDL, Force, Electronics, Time, Optics, and Sound labs, contributing to calibration and testing procedures.'
+                        ]
+                    }
+                ],
+                skills: {
+                    categories: [
+                        { name: 'Technical', level: 8 },
+                        { name: 'Strategy', level: 7 },
+                        { name: 'Ops Mgmt', level: 9 },
+                        { name: 'Leadership', level: 8 },
+                        { name: 'Data Mgmt', level: 9 },
+                        { name: 'Dev & IT', level: 7 }
+                    ],
+                    details: [
+                        {
+                            category: "Technical & Development",
+                            items: ["Radiation Safety Management", "HTML, CSS, JS, React", "Python, C, SQL", "Arduino, ESP32/8266", "Git & GitHub", "Shell Scripting", "Chatbot Intergration", "Linux"]
+                        },
+                        {
+                            category: "Operations & Data",
+                            items: ["Process Optimization", "Data Management", "Google Workspace Expert", "Logistics Management", "Digital Transformation", "IT Infrastructure Upgrade"]
+                        },
+                        {
+                            category: "Leadership & Strategy",
+                            items: ["Project Management", "Team Leadership", "Curriculum Development", "Tender Management", "Client Relationship Management", "Strategic Problem-Solving"]
+                        }
+                    ]
+                },
+                certifications: [
+                    "Radiation Protection Course for Occupationally Exposed Workers, IAEA (2023)",
+                    "VEX Robotics Certification (2021)",
+                    "Radiation Protection of Industrial Radiography, IAEA (2018)"
+                ]
+            };
+
+            // Populate Header
+            document.getElementById('main-name').textContent = userData.name;
+            const contactContainer = document.getElementById('contact-info');
+            contactContainer.innerHTML = `
+                <a href="mailto:${userData.contact.email}" class="hover:text-slate-800">${userData.contact.email}</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://linkedin.com/in/${userData.contact.linkedin}" target="_blank" class="hover:text-slate-800">LinkedIn</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://${userData.contact.website}" target="_blank" class="hover:text-slate-800">Website</a>
+            `;
+
+            // Populate Timeline
+            const timelineNav = document.getElementById('timeline-nav');
+            const experienceDetails = document.getElementById('experience-details');
+            userData.experience.forEach((job, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item relative mb-8 pl-8 cursor-pointer';
+                timelineItem.dataset.id = job.id;
+                timelineItem.innerHTML = `
+                    <div class="timeline-dot absolute w-4 h-4 bg-slate-300 rounded-full mt-1.5 -left-2 border-2 border-white transition-all duration-300"></div>
+                    <time class="text-sm font-semibold uppercase text-slate-500">${job.period}</time>
+                    <h3 class="timeline-title text-lg text-slate-600 transition-colors duration-300">${job.title}</h3>
+                    <p class="text-md text-slate-500">${job.company}</p>
+                `;
+                timelineNav.appendChild(timelineItem);
+
+                const contentCard = document.createElement('div');
+                contentCard.className = 'content-card bg-white p-8 rounded-lg shadow-md border border-slate-200';
+                contentCard.id = `content-${job.id}`;
+                let detailsHtml = '<ul class="space-y-3 list-disc list-inside text-slate-700">';
+                job.details.forEach(detail => {
+                    detailsHtml += `<li>${detail}</li>`;
+                });
+                detailsHtml += '</ul>';
+                contentCard.innerHTML = detailsHtml;
+                experienceDetails.appendChild(contentCard);
+            });
+
+            // Timeline interaction logic
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetId = `content-${item.dataset.id}`;
+
+                    document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    document.querySelectorAll('.content-card').forEach(card => {
+                        if (card.id === targetId) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Activate the first timeline item by default
+            if (timelineItems.length > 0) {
+                timelineItems[0].click();
+            }
+
+            // Populate Skills
+            const skillsContainer = document.querySelector('#competencies .grid');
+            userData.skills.details.forEach(skillGroup => {
+                const card = document.createElement('div');
+                card.className = 'skill-card bg-white p-6 rounded-lg shadow-md border border-slate-200';
+                let itemsHtml = `<h3 class="text-xl font-bold text-slate-800 mb-4 text-center">${skillGroup.category}</h3><ul class="space-y-2 text-slate-600">`;
+                skillGroup.items.forEach(item => {
+                    itemsHtml += `<li class="flex items-center"><span class="w-2 h-2 bg-slate-400 rounded-full mr-3"></span>${item}</li>`;
+                });
+                itemsHtml += `</ul>`;
+                card.innerHTML = itemsHtml;
+                skillsContainer.appendChild(card);
+            });
+
+            // Populate Certifications
+            const certsList = document.getElementById('certifications-list');
+            userData.certifications.forEach(cert => {
+                const p = document.createElement('p');
+                p.textContent = cert;
+                certsList.appendChild(p);
+            });
+
+            // Skills Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: userData.skills.categories.map(s => s.name),
+                    datasets: [{
+                        label: 'Skill Level',
+                        data: userData.skills.categories.map(s => s.level),
+                        backgroundColor: 'rgba(100, 116, 139, 0.2)', // slate-500 with alpha
+                        borderColor: 'rgba(51, 65, 85, 1)', // slate-700
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(51, 65, 85, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(51, 65, 85, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(203, 213, 225, 0.8)' // slate-300
+                            },
+                            grid: {
+                                color: 'rgba(203, 213, 225, 0.8)' // slate-300
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                },
+                                color: '#334155' // slate-700
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(248, 250, 252, 1)', // slate-50
+                                color: '#64748b', // slate-500
+                                stepSize: 2,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            min: 0,
+                            max: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
