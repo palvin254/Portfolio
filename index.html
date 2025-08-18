@@ -10,13 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals (Slate, Zinc, Stone) -->
-    <!-- Application Structure Plan: A thematic, single-page scrolling application. The structure is designed for narrative flow and user engagement, starting with a high-level summary and allowing users to drill down into details. It uses an interactive timeline for career history and a radar chart for a quick skills overview, which is more engaging than a static list. This non-linear exploration path allows recruiters to quickly access the information most relevant to them, enhancing usability. -->
-    <!-- Visualization & Content Choices: 
-        1. Career History -> Goal: Show change/progression -> Viz: Interactive Vertical Timeline (HTML/CSS) -> Interaction: Click timeline points to show/hide job details -> Justification: More intuitive and less overwhelming than a long text block.
-        2. Skills -> Goal: Compare/Organize -> Viz: Radar Chart (Chart.js/Canvas) & Info Cards (HTML/CSS) -> Interaction: Chart provides a visual summary; cards are clickable to reveal skill details -> Justification: Quickly communicates balanced, multi-faceted strengths.
-        3. Key Achievements -> Goal: Inform/Impact -> Viz: "Signature Project" Cards (HTML/CSS) -> Interaction: Static display -> Justification: Elevates key accomplishments into memorable case studies.
-        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -125,24 +118,24 @@
 
 <body class="antialiased">
 
-    <!-- Header / Hero Section -->
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-6 py-12 text-center">
             <h1 id="main-name" class="text-4xl md:text-6xl font-bold text-slate-900">Paul Mwangi Waithira</h1>
             <p class="mt-4 text-xl md:text-2xl text-slate-600">Technology & Operations Leader | Digital Transformation
                 Specialist | Radiation Safety Officer</p>
-            <div id="contact-info" class="mt-6 flex justify-center items-center space-x-6 text-slate-500">
-                <!-- Contact items will be injected here by JS -->
-            </div>
+            <div id="contact-info" class="mt-6 flex flex-col items-center space-y-2 md:flex-row md:justify-center md:space-x-6 md:space-y-0 text-slate-500">
+                </div>
         </div>
     </header>
 
 
 
+
+
+
     <main class="container mx-auto px-6 py-16">
 
-        <!-- About Section -->
-    <section id="about" class="mb-24 text-center max-w-4xl mx-auto">
+        <section id="about" class="mb-24 text-center max-w-4xl mx-auto">
         <h2 class="section-title">About Me</h2>
     
         <div class="md:flex md:items-center md:text-left md:space-x-12">
@@ -172,26 +165,20 @@
         </div>
     </section>
 
-        <!-- Career Journey Section -->
         <section id="journey" class="mb-24">
             <h2 class="section-title">Career Journey</h2>
             <div class="text-center text-slate-600 mb-8">Click on a role in the timeline below to see the details and
                 key achievements.</div>
             <div class="flex flex-col md:flex-row md:space-x-12">
-                <!-- Timeline Navigation -->
                 <div class="md:w-1/3">
                     <div id="timeline-nav" class="relative border-l-2 border-slate-200 ml-3 py-4">
-                        <!-- Timeline items will be injected by JS -->
-                    </div>
+                        </div>
                 </div>
-                <!-- Experience Details -->
                 <div id="experience-details" class="md:w-2/3 mt-8 md:mt-0">
-                    <!-- Content cards will be injected by JS -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Core Competencies Section -->
         <section id="competencies" class="mb-24">
             <h2 class="section-title">Core Competencies</h2>
             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">My skills bridge the gap between technical
@@ -201,15 +188,12 @@
                 <canvas id="skillsChart"></canvas>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Skill cards will be injected by JS -->
-            </div>
+                </div>
         </section>
 
-        <!-- Signature Projects Section -->
         <section id="projects" class="mb-24">
             <h2 class="section-title">Signature Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Project cards will be injected here -->
                 <div class="bg-white p-8 rounded-lg shadow-md border border-slate-200">
                     <h3 class="text-2xl font-bold text-slate-800 mb-3">Digital Transformation at RadTech</h3>
                     <p class="text-slate-600 leading-relaxed">Spearheaded a complete operational overhaul by
@@ -228,7 +212,6 @@
             </div>
         </section>
 
-        <!-- Education & Certifications -->
         <section id="education" class="bg-white py-16 rounded-lg shadow-md">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">Education & Certifications</h2>
@@ -249,8 +232,7 @@
                     <div>
                         <h3 class="text-xl font-bold text-slate-800">Certifications</h3>
                         <div id="certifications-list" class="mt-4 space-y-4 text-slate-700">
-                            <!-- Certs injected by JS -->
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -274,7 +256,7 @@
                     phone: "+254 741 406 438",
                     email: "paulmwangiwaithira155@gmail.com",
                     linkedin: "https://www.linkedin.com/in/paul-mwangi-1bb3a8201",
-                    website: "palvin254.github.io"
+                    website: "radtech.co.ke"
                 },
                 experience: [
                     {
